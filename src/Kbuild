@@ -1,0 +1,4 @@
+EXTRA_CFLAGS = -Wall -g
+
+obj-m += clevo-keyboard.o
+clevo-keyboard-objs += clevo-wmi.o clevo-dmi-check.o
