@@ -1,0 +1,8 @@
+# Binary debug data
+*.dat
+*.hex
+*.dsl
+*.log
+
+# Build output folder
+build/

@@ -18,7 +18,7 @@ compile: setup
 
 # Need to run the following targets with root permissions
 install:
-	cp $(BUILD_DIR)/$(MODULE_NAME).ko $(KERNEL_DIR)/extra
+	cp $(BUILD_DIR)/$(MODULE_NAME).ko $(KERNEL_DIR)/extramodules/
 	depmod -A
 	modprobe $(MODULE_NAME) dmi_check=$(DMI_CHECK)
 
@@ -28,4 +28,4 @@ uninstall:
 
 clean: uninstall
 	rm -rf $(BUILD_DIR)
-	rm -rf $(KERNEL_DIR)/extra/$(MODULE_NAME).ko
+	rm -rf $(KERNEL_DIR)/extramodules/$(MODULE_NAME).ko
