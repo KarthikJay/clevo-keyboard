@@ -9,6 +9,10 @@
 
 #include "clevo-wmi.h"
 
+/*
+	Use "sudo fwts wmi -" to see unsupported wmi commands
+*/
+
 // Method declarations
 static int __init	check_wmi_functionality(const char* guid);
 static int __init	clevo_init(void);
