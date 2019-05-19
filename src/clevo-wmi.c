@@ -13,7 +13,7 @@
 	Use "sudo fwts wmi -" to see unsupported wmi commands
 */
 
-// Method declarations
+// Function declarations
 static int __init	check_wmi_functionality(const char* guid);
 static int __init	clevo_init(void);
 static int 			clevo_wmi_probe(struct platform_device* device);
@@ -35,11 +35,13 @@ static struct platform_driver	clevo_driver = {
 		.name	= KBUILD_MODNAME,
 		.owner	= THIS_MODULE,
 	},
-	.probe = clevo_wmi_probe,
-	.remove = clevo_wmi_remove
+	.probe	= clevo_wmi_probe,
+	.remove	= clevo_wmi_remove
 };
 static bool dmi_check = TRUE;
 
+
+// Function definitions
 static int __init check_wmi_functionality(const char* guid)
 {
 	int status = 0;
