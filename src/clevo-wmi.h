@@ -34,7 +34,7 @@ typedef enum
 static const u8 kb_brightness_id = 0xF4;
 
 // Methods for controlling the clevo led keyboard
-static void kb_set_brightness(u8 brightness);
-static void kb_set_state(u8 state);
+static void	kb_set_brightness(u8 brightness);
+static void	kb_set_state(u8 state);
 static int	kb_set_mode(kb_led_mode_t mode);
-static int 	kb_set_color(kb_region_t region, u32 color);
+static int	kb_set_color(kb_region_t region, u32 color);

@@ -9,9 +9,7 @@
 
 #include "clevo-wmi.h"
 
-/*
-	Use "sudo fwts wmi -" to see unsupported wmi commands
-*/
+// Use "sudo fwts wmi -" to see unsupported wmi commands
 
 // Function declarations
 static int __init	check_wmi_functionality(const char* guid);
@@ -39,7 +37,6 @@ static struct platform_driver	clevo_driver = {
 	.remove	= clevo_wmi_remove
 };
 static bool dmi_check = TRUE;
-
 
 // Function definitions
 static int __init check_wmi_functionality(const char* guid)
@@ -73,7 +70,7 @@ static int clevo_wmi_probe(struct platform_device* device)
 		pr_err("Could not install WMI notification: (%0#6x)", status);
 		goto report_status;
 	}
-	
+
 	clevo_evaluate_wmi_method(GET_AP, 0, NULL);
 
 report_status:
@@ -93,30 +90,28 @@ static int clevo_wmi_remove(struct platform_device* device)
 static int __init clevo_init(void)
 {
 	int status = 0;
+	const char *product_name = dmi_get_system_info(DMI_PRODUCT_NAME);
 	
 	pr_debug("Initializing %s kernel module\n", KBUILD_MODNAME);
 	status = check_wmi_functionality(clevo_event_guid) | check_wmi_functionality(clevo_get_guid);
 	if (status)
 		goto report_status;
 
-	if (dmi_check && (dmi_check_system(&clevo_dmi_table)))
+	if (dmi_check && dmi_check_system(&clevo_dmi_table))
 	{
-		pr_err("Device %s not supported\n", dmi_get_system_info(DMI_PRODUCT_NAME));
+		pr_err("Device %s not supported\n", product_name);
 		status = -ENODEV;
 		goto report_status;
 	} else
 	{
 		// TODO: Format a pr_info with the relevant info needed to add to dmidecode table
 		pr_warn("Bypassed DMI check, the driver may not support your device.\n");
-		pr_info("Model '%s' detected\n", dmi_get_system_info(DMI_PRODUCT_NAME));
+		pr_info("Model '%s' detected\n", product_name);
 	}
 
 	status = platform_driver_register(&clevo_driver);
 	if (status)
-	{
 		pr_err("Driver was unable to be registered.\n");
-		goto report_status;
-	}
 
 report_status:
 	return status;
